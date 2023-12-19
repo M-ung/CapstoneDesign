@@ -1,4 +1,6 @@
 package capstonedesign.capstonedesign.config.auth;
+import capstonedesign.capstonedesign.service.token.TokenService;
+import capstonedesign.capstonedesign.service.user.UserService;
 import capstonedesign.capstonedesign.utils.JwtUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -10,7 +12,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.token.TokenService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -41,12 +42,12 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         // 토큰 꺼내기
         String token = authorization.split(" ")[1];
 
-        // 블랙리스트에 토큰이 있는지 확인
-        if (tokenService.isTokenBlacklisted(token)) {
-            log.error("Blacklisted token");
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Blacklisted token");
-            return;
-        }
+//        // 블랙리스트에 토큰이 있는지 확인
+//        if (tokenService.isTokenBlacklisted(token)) {
+//            log.error("Blacklisted token");
+//            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Blacklisted token");
+//            return;
+//        }
 
         // 토큰 만료 시간 확인
         if (JwtUtil.isExpired(token, secretKey)) {

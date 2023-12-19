@@ -1,6 +1,8 @@
 package capstonedesign.capstonedesign.config.auth;
 
 
+import capstonedesign.capstonedesign.service.token.TokenService;
+import capstonedesign.capstonedesign.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -8,8 +10,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.token.TokenService;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -25,8 +27,7 @@ public class AuthenticationConfig {
 
     @Bean // 스프링 컨테이너에 등록할 Bean 객체를 정의
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        return httpSecurity
-                .httpBasic().disable() // 기본 로그인 페이지 비활성화 (토큰 인증을 사용하기 때문)
+        return httpSecurity.httpBasic().disable() // 기본 로그인 페이지 비활성화 (토큰 인증을 사용하기 때문)
                 .csrf().disable() // CSRF(Cross-Site Request Forgery) 보호 기능 비활성화
                 .cors().and() // CORS(Cross-Origin Resource Sharing) 설정 활성화
                 .authorizeRequests() // HttpServletRequest를 사용한 접근 제한 설정

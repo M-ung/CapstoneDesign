@@ -1,6 +1,7 @@
 package capstonedesign.capstonedesign.service.token;
 
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -8,6 +9,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Service
+@RequiredArgsConstructor
 public class TokenService {
     private Set<String> blacklistedTokens = ConcurrentHashMap.newKeySet();
     public void blacklistToken(String token) {
